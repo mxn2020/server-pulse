@@ -1,5 +1,9 @@
 # React + TypeScript + Vite
 
+[![CI](https://github.com/mxn2020/server-pulse/actions/workflows/ci.yml/badge.svg)](https://github.com/mxn2020/server-pulse/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

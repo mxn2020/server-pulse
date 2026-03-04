@@ -1,6 +1,7 @@
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { Server, Wifi, HardDrive, Cpu, AlertTriangle, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Button, Card, Badge } from "@geenius-ui/react-css";
 
 const servers = [
     { id: "1", name: "prod-web-01", ip: "10.0.0.1", cpu: 72, ram: 58, disk: 41, status: "online" },
@@ -9,8 +10,11 @@ const servers = [
     { id: "4", name: "prod-redis-01", ip: "10.0.0.4", cpu: 95, ram: 74, disk: 35, status: "warning" },
     { id: "5", name: "backup-01", ip: "10.0.0.5", cpu: 0, ram: 0, disk: 99, status: "offline" }
 ];
+
 const history = Array.from({ length: 20 }, (_, i) => ({ t: `${i}m`, cpu: Math.floor(30 + Math.random() * 40), ram: Math.floor(50 + Math.random() * 30) }));
+
 type Stat = { label: string; value: string; sub: string; color: string; icon: React.ElementType };
+
 const stats: Stat[] = [
     { label: "Total Servers", value: "5", sub: "4 online, 1 offline", color: "var(--color-accent-primary)", icon: Server },
     { label: "Avg CPU", value: "38%", sub: "Last 60 minutes", color: "#10B981", icon: Cpu },
@@ -22,28 +26,28 @@ export default function DashboardPage() {
     return (<div style={{ padding: "var(--space-6)", maxWidth: 1400 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--space-6)" }}>
             <div>
-                <h1 style={{ fontSize: "var(--font-size-2xl)", fontWeight: 700 }}>Infrastructure Overview</h1>
-                <p style={{ color: "var(--color-text-secondary)", fontSize: "14px", marginTop: 4 }}>Last updated: just now</p>
+                <h1 style={{ fontSize: "var(--font-size-2xl)", fontWeight: 700, margin: 0 }}>Infrastructure Overview</h1>
+                <p style={{ color: "var(--color-text-secondary)", fontSize: "14px", marginTop: 4, marginBottom: 0 }}>Last updated: just now</p>
             </div>
-            <button className="btn btn-primary"><Wifi size={16} /> Add Server</button>
+            <Button variant="primary" icon={<Wifi size={16} />}>Add Server</Button>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "var(--space-4)", marginBottom: "var(--space-6)" }}>
             {stats.map(s => (
-                <div key={s.label} className="card" style={{ padding: "var(--space-5)" }}>
+                <Card key={s.label} padding="lg">
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "var(--space-3)" }}>
                         <span style={{ fontSize: "13px", color: "var(--color-text-secondary)", fontWeight: 500 }}>{s.label}</span>
                         <s.icon size={16} style={{ color: s.color }} />
                     </div>
                     <div style={{ fontSize: "28px", fontWeight: 700, color: s.color, fontFamily: "var(--font-mono)" }}>{s.value}</div>
                     <div style={{ fontSize: "12px", color: "var(--color-text-tertiary)", marginTop: "var(--space-2)" }}>{s.sub}</div>
-                </div>
+                </Card>
             ))}
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "var(--space-6)" }}>
-            <div className="card" style={{ padding: "var(--space-5)" }}>
-                <h2 style={{ fontSize: "16px", fontWeight: 600, marginBottom: "var(--space-4)" }}>Cluster CPU & RAM (last 20m)</h2>
+            <Card padding="xl">
+                <h2 style={{ fontSize: "16px", fontWeight: 600, marginBottom: "var(--space-4)", marginTop: 0 }}>Cluster CPU & RAM (last 20m)</h2>
                 <ResponsiveContainer width="100%" height={200}>
                     <AreaChart data={history}>
                         <defs>
@@ -57,23 +61,23 @@ export default function DashboardPage() {
                         <Area type="monotone" dataKey="ram" stroke="#8B5CF6" fill="url(#ram)" strokeWidth={2} name="RAM%" />
                     </AreaChart>
                 </ResponsiveContainer>
-            </div>
+            </Card>
 
-            <div className="card" style={{ padding: "var(--space-5)" }}>
-                <h2 style={{ fontSize: "16px", fontWeight: 600, marginBottom: "var(--space-4)" }}>Server Fleet</h2>
+            <Card padding="xl">
+                <h2 style={{ fontSize: "16px", fontWeight: 600, marginBottom: "var(--space-4)", marginTop: 0 }}>Server Fleet</h2>
                 <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
                     {servers.map(s => (
                         <Link key={s.id} to={`/server/${s.id}`} style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", padding: "var(--space-3)", borderRadius: "var(--radius-sm)", background: "var(--color-bg-secondary)", borderLeft: `3px solid ${s.status === "online" ? "#10B981" : s.status === "warning" ? "#F59E0B" : "#EF4444"}` }}>
                             <div style={{ flex: 1 }}>
-                                <div style={{ fontSize: "13px", fontWeight: 600, fontFamily: "var(--font-mono)" }}>{s.name}</div>
-                                <div style={{ fontSize: "11px", color: "var(--color-text-tertiary)", fontFamily: "var(--font-mono)" }}>{s.ip}</div>
+                                <div style={{ fontSize: "13px", fontWeight: 600, fontFamily: "var(--font-mono)", margin: '0 0 2px 0' }}>{s.name}</div>
+                                <div style={{ fontSize: "11px", color: "var(--color-text-tertiary)", fontFamily: "var(--font-mono)", margin: 0 }}>{s.ip}</div>
                             </div>
                             <span style={{ fontSize: "11px", fontWeight: 700, color: s.status === "online" ? "#10B981" : s.status === "warning" ? "#F59E0B" : "#EF4444", textTransform: "uppercase" }}>{s.status}</span>
                             <ArrowRight size={14} style={{ color: "var(--color-text-tertiary)" }} />
                         </Link>
                     ))}
                 </div>
-            </div>
+            </Card>
         </div>
     </div>);
 }
