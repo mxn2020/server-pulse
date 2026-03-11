@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest run --passWithNoTests"
+    "test": "vitest run --passWithNoTests",
+    "stop": "pkill -f 'vite.*server-pulse' || true"
   },
   "dependencies": {
     "@geenius-ui/react-css": "file:/Users/mehdinabhani/Projects/antigravity/packages/geenius-ui/packages/react-css",
