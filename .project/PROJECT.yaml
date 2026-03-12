@@ -1,0 +1,16 @@
+name: server-pulse
+project_scope: main
+project_type: standalone
+description: Server uptime monitoring with real-time status pages
+tier: prototype
+lane: open-source
+priority: medium
+oss: true
+stack: ["typescript", "react", "vite", "convex"]
+repo: "https://github.com/mxn2020/server-pulse"
+deploy_url: null
+last_active: 2026-03-11
+tags: ["server-pulse", "convex", "react", "open-source", "ai-tools"]
+notes: null
+id: null
+category: oss-tool
