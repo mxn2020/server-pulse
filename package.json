@@ -46,7 +46,7 @@
   },
   "description": "Server uptime monitoring with real-time status pages",
   "author": "Mehdi Nabhani",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "keywords": [
     "server",
     "pulse",
